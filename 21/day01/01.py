@@ -14,11 +14,15 @@ except OSError:
     print(f"Error opening filename: {filename}")
     quit()
 
-count = 0
+single_increases = 0
+rolling_increases = 0
 for i, val in enumerate(values):
     if i == 0:
         continue
     if val > values[i - 1]:
-        count += 1
-
-print(count)
+        single_increases += 1
+    if i > 2:
+        if sum(values[i - 2:i + 1]) > sum(values[i - 3:i]):
+            rolling_increases += 1
+print(single_increases)
+print(rolling_increases)
