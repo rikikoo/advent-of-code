@@ -9,10 +9,10 @@ if len(sys.argv) < 2:
 filename = sys.argv[1]
 try:
     with open(filename) as f:
-        # assuming that input is clean i.e. numbers only
+        # assuming that every line is clean i.e. "<numerical_value>\n"
         values = [int(line) for line in f if line != "\n"]
 except OSError:
-    print(f"Error opening filename: {filename}")
+    print(f"Error opening file: {filename}")
     quit()
 
 single_increases = 0
