@@ -30,3 +30,6 @@ Logical deduction.
 
 ### day 9
 Implement a flood fill algorithm.
+
+### day 10
+Evaluate expression (at a glance seems like it, haven't started working on it yet).
