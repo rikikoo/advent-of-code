@@ -4,6 +4,8 @@ My solutions, written in Python.
 Visit the [AoC website](https://adventofcode.com/2021) for more info.
 
 ## Summary of puzzle concepts
+The following are my high-level simplifications of the given tasks. Check the `subjectXX` file (in each day's directory) for the official assignment texts.
+
 ### day 1
 Get rolling sum with a window of size 3 from a series of ints. Compare delta of sums and return number of increases.
 
@@ -26,10 +28,10 @@ Simulate exponential growth based on two variables whose values change based on 
 Calculate sum of distances to the median and the mean of a dataset.
 
 ### day 8
-Logical deduction.
+Decryption. Straightforward logical deduction rather than clever code.
 
 ### day 9
 Implement a flood fill algorithm.
 
 ### day 10
-Evaluate expression (at a glance seems like it, haven't started working on it yet).
+Parser for evaluating an expression (at a glance seems like it... haven't started working on it yet).
