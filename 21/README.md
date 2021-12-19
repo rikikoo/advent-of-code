@@ -9,7 +9,6 @@ The following are my high-level simplifications of the given tasks. Check the `s
 | Day | Description |
 | --- | --- |
 | 1 |Get rolling sum with a window of size 3 from a series of ints. Compare delta of sums and return number of increases.|
-
 | 2 |Add vectors together.|
 | 3 |Filter out unwanted values and do a little bit (pun intended) of bit manipulation to the results.|
 | 4 |Bingo grid reader. Determine winning and losing grid based on bingo numbers.|
