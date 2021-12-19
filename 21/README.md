@@ -34,4 +34,4 @@ Decryption. Straightforward logical deduction rather than clever code.
 Implement a flood fill algorithm.
 
 ### day 10
-Parser for evaluating an expression (at a glance seems like it... haven't started working on it yet).
+Find matching brackets. FILO stack.
