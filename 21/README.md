@@ -18,8 +18,8 @@ The following are my high-level simplifications of the given tasks. Check the `s
 | 8 |Decryption. Straightforward logical deduction rather than clever code.|
 | 9 |Implement a flood fill algorithm.|
 | 10 |Find matching brackets. FILO stack.|
-| 11 |Cellular automata / game-of-lifey simulation|
-| 12 |TBA|
+| 11 |Cellular automata / game-of-lifey simulation.|
+| 12 |Graph DFS.|
 | 13 |TBA|
 | 14 |TBA|
 | 15 |TBA|

@@ -11,61 +11,6 @@ WHITE = "\033[97m"
 RESET = "\033[0m"
 
 
-def get_adjacent_values(grid):
-    # this method is from SO (CC BY-SA 3.0):
-    # https://stackoverflow.com/a/38078596/14656436
-    region = 10  # number of region whose neighbors we want
-
-    y = grid == region  # convert to Boolean
-
-    rolled = np.roll(y, 1, axis=0)  # shift down
-    rolled[0, :] = False
-    z = np.logical_or(y, rolled)
-
-    rolled = np.roll(y, -1, axis=0)  # shift up
-    rolled[-1, :] = False
-    z = np.logical_or(z, rolled)
-
-    rolled = np.roll(y, 1, axis=1)  # shift right
-    rolled[:, 0] = False
-    z = np.logical_or(z, rolled)
-
-    rolled = np.roll(y, -1, axis=1)  # shift left
-    rolled[:, -1] = False
-    z = np.logical_or(z, rolled)
-
-    neighbors = set(np.unique(np.extract(z, grid))) - {region}
-    print(neighbors)
-
-
-def get_adjacent_positions(pos, limits):
-    a_list = []
-    x = pos[1]
-    y = pos[0]
-    # row above current position
-    if y > 0:
-        if x > 0:
-            a_list.append((y - 1, x - 1))
-        a_list.append((y - 1, x))
-        if x < limits[1]:
-            a_list.append((y - 1, x + 1))
-    # cell right of current position
-    if x < limits[1]:
-        a_list.append((y, x + 1))
-    # row below current position
-    if y < limits[0]:
-        if x < limits[1]:
-            a_list.append((y + 1, x + 1))
-        a_list.append((y + 1, x))
-        if x > 0:
-            a_list.append((y + 1, x - 1))
-    # cell left of current position
-    if x > 0:
-        a_list.append((y, x - 1))
-
-    return a_list
-
-
 def update_adjacent(grid, pos, limits, orig_pos):
     x = pos[1]
     y = pos[0]
