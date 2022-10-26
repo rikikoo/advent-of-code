@@ -3,50 +3,47 @@
 import sys
 
 
-def parse_paths(p):
-    paths = []
-    path = []
-    for i, node in enumerate(p):
-        if node[1] == "end":
-            prev = p[i - 1::-1]
-            last = p[i][0]
-            path.append(node[1])
-            for elem in prev:
-                if elem[0] == last - 1 and elem[1] != "end":
-                    path.append(elem[1])
-                    last = elem[0]
-            paths.append(list(reversed(path)))
-            path = []
-        elif i < len(p) - 1:
-            if p[i][0] == p[i + 1][0] and p[i + 1] == "end":
-                del p[i]
+class Path:
+    """
+    Since there's no real way to pass objects by reference in Python,
+    classes are necessary.
+
+    Keeps track of paths found by the depth-first search algorithm.
+    Stores only paths that lead to the 'end' node.
+    """
+
+    def __init__(self):
+        self.path = ["start"]
+        self.paths = []
+
+    def apnd(self, node):
+        self.path.append(node)
+        if node == "end":
+            self.paths.append(self.path)
+
+
+def dfs(g, curr_node, visited, paths, curr_path):
+    if curr_node == "end":
+        paths.append(curr_path)
+        return paths
+    adjacent = g[curr_node]
+    curr_visits = visited
+    for a in adjacent:
+        if visited[a] == False:
+            if a.islower():
+                curr_visits[a] = True
+            curr_path.append(a)
+            paths = dfs(g, a, curr_visits, paths, curr_path)
     return paths
-
-
-def dfs(g, visited, start, path, n):
-    path.append((n, start))
-    print(f"{n}: {start}")
-    if start == "end":
-        return path
-    adjacent = g[start]
-    has_upper = True in [x.isupper() for x in adjacent]
-    for adj in adjacent:
-        if not visited[adj]:
-            if str(adj).islower() and adj != "end":
-                visited[adj] = True
-            path = dfs(g, visited, adj, path, n + 1)
-        if start == "start":
-            visited.update((k, False) for (k, v) in visited.items())
-            visited["start"] = True
-    return path
 
 
 def get_paths(g):
     visited = {}
     [visited.setdefault(key, False) for key in g.keys()]
     visited["start"] = True
-    path = dfs(g, visited, "start", [], 1)
-    return path
+    paths = Path()
+    paths = dfs(g, paths)
+    return paths
 
 
 def get_graph(lines):
@@ -103,20 +100,11 @@ def main():
         quit()
 
     g = get_graph(lines)
-    path = get_paths(g)
-    paths = parse_paths(path)
+    paths = get_paths(g)
+
+
     for path in paths:
         print(path)
-
-    part1ans = 0
-    for path in paths:
-        count = 0
-        for node in path:
-            if node not in ["start", "end"] and node.islower():
-                count += 1
-        if count <= 1:
-            part1ans += 1
-    print(f"Paths that visit a small cave at most once: {part1ans}")
 
 
 if __name__ == "__main__":
