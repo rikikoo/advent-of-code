@@ -3,46 +3,26 @@
 import sys
 
 
-class Path:
-    """
-    Since there's no real way to pass objects by reference in Python,
-    classes are necessary.
-
-    Keeps track of paths found by the depth-first search algorithm.
-    Stores only paths that lead to the 'end' node.
-    """
-
-    def __init__(self):
-        self.path = ["start"]
-        self.paths = []
-
-    def apnd(self, node):
-        self.path.append(node)
-        if node == "end":
-            self.paths.append(self.path)
-
-
-def dfs(g, curr_node, visited, paths, curr_path):
+def dfs(g, source, curr_node, visits, max_visits, paths):
+    print(f"{source} -> {curr_node}")
     if curr_node == "end":
-        paths.append(curr_path)
+        paths += 1
         return paths
     adjacent = g[curr_node]
-    curr_visits = visited
     for a in adjacent:
-        if visited[a] == False:
-            if a.islower():
-                curr_visits[a] = True
-            curr_path.append(a)
-            paths = dfs(g, a, curr_visits, paths, curr_path)
+        if visits[a] < max_visits:
+            if a.islower() and a != "end":
+                visits[a] += 1
+            paths = dfs(g, curr_node, a, visits.copy(), max_visits, paths)
     return paths
 
 
-def get_paths(g):
-    visited = {}
-    [visited.setdefault(key, False) for key in g.keys()]
-    visited["start"] = True
-    paths = Path()
-    paths = dfs(g, paths)
+def get_paths(g, max_visits):
+    visits = {}
+    [visits.setdefault(key, 0) for key in g.keys()]
+    visits["start"] = 2
+    paths = 0
+    paths = dfs(g, "none", "start", visits, max_visits, paths)
     return paths
 
 
@@ -100,11 +80,13 @@ def main():
         quit()
 
     g = get_graph(lines)
-    paths = get_paths(g)
 
+    paths = get_paths(g, 1)
+    print(f"Part 1 answer: {paths}")
 
-    for path in paths:
-        print(path)
+    # paths = get_paths(g, 2)
+    # print(f"Part 2 answer: {paths}")
+
 
 
 if __name__ == "__main__":
