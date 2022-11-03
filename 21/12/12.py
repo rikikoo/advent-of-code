@@ -4,15 +4,15 @@ import sys
 
 
 def dfs(g, source, curr_node, visits, max_visits, paths):
-    print(f"{source} -> {curr_node}")
+    # print(f"{source} -> {curr_node}")
     if curr_node == "end":
         paths += 1
         return paths
+    if curr_node.islower():
+        visits[curr_node] += 1
     adjacent = g[curr_node]
     for a in adjacent:
         if visits[a] < max_visits:
-            if a.islower() and a != "end":
-                visits[a] += 1
             paths = dfs(g, curr_node, a, visits.copy(), max_visits, paths)
     return paths
 
@@ -84,8 +84,8 @@ def main():
     paths = get_paths(g, 1)
     print(f"Part 1 answer: {paths}")
 
-    # paths = get_paths(g, 2)
-    # print(f"Part 2 answer: {paths}")
+    paths = get_paths(g, 2)
+    print(f"Part 2 answer: {paths}")
 
 
 
