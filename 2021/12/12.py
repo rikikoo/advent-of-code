@@ -3,35 +3,36 @@
 import sys
 
 
-def dfs(g, source, curr_node, visits, max_visits, paths):
-    # print(f"{source} -> {curr_node}")
+def dfs(g, curr_node, visits, max_visits):
+    paths = 0
+    # recursion base condition.
+    # if we reach the end node, we can increase the path count
     if curr_node == "end":
-        paths += 1
-        return paths
-    if curr_node.islower():
+        return 1
+
+    # increment visit count on lower case nodes
+    if curr_node.islower() and curr_node != "start":
         visits[curr_node] += 1
+        if visits[curr_node] >= max_visits and max_visits > 1:
+            max_visits = 1
+    
+    # loop through neighboring nodes
+    # recursively visit unvisited nodes
     adjacent = g[curr_node]
     for a in adjacent:
-        if visits[a] < max_visits:
-            paths = dfs(g, curr_node, a, visits.copy(), max_visits, paths)
+        if (a.isupper() or a == "end" or (visits[a] < max_visits and a != "start")):
+            paths += dfs(g, a, visits.copy(), max_visits)
+
     return paths
 
 
 def get_paths(g, max_visits):
     visits = {}
     [visits.setdefault(key, 0) for key in g.keys()]
-    visits["start"] = 2
-    paths = 0
-    paths = dfs(g, "none", "start", visits, max_visits, paths)
-    return paths
+    return dfs(g, "start", visits, max_visits)
 
 
 def get_graph(lines):
-    """
-    Couldn't bother with venv issues on VS Code,
-    so I wrote my own mini 'networkx'
-    """
-
     # store all edges in a list
     connections = []
     start = False
@@ -73,7 +74,6 @@ def main():
     filename = sys.argv[1]
     try:
         with open(filename) as f:
-            # read input to a list of strings
             lines = [line for line in f if line != "\n"]
     except OSError:
         print(f"ERROR: could not open file {filename}")
