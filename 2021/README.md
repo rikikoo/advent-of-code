@@ -21,8 +21,8 @@ The following are my high-level simplifications of the given tasks. Check the `s
 | 11 |Cellular automata / game-of-lifey simulation.|
 | 12 |Count paths on a graph (DFS).|
 | 13 |Perform a logical OR on binary vectors and count the 1s.|
-| 14 |Count the occurrences of elements generated from a small set of rules given a starting condition. **DISCLAIMER: I DON'T FULLY UNDERSTAND THIS RESULT YET. I thought I understood the logic, but for some reason I need to do an extra division by two to get the correct result when 40 steps are performed...**|
-| 15 |TBA|
+| 14 |Count the occurrences of elements generated from a small set of rules given a starting condition. **DISCLAIMER: I had to look at other people's solutions for this one... I still don't quite understand how it works**|
+| 15 |A* algorithm.|
 | 16 |TBA|
 | 17 |TBA|
 | 18 |TBA|
